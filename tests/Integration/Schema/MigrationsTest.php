@@ -46,12 +46,14 @@ final class MigrationsTest extends TestCase
                 ['binding', 'email_hash', 'remote_id', 'subscribed', 'synced_at', 'values_hash'],
                 ['binding', 'email_hash', 'reason', 'suppressed_at'],
                 ['agreed_at', 'binding', 'email_hash', 'id', 'ip', 'source', 'wording'],
+                ['binding', 'registered_at', 'remote_id', 'signing_secret'],
             ],
             [
                 $this->columns($tables->outbox()),
                 $this->columns($tables->subject()),
                 $this->columns($tables->suppression()),
                 $this->columns($tables->consent()),
+                $this->columns($tables->webhook()),
             ],
         );
     }

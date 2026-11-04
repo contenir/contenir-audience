@@ -9,6 +9,7 @@ use Contenir\Audience\Tests\TestAsset\Schema\Version20261105000100CreateOutbox;
 use Contenir\Audience\Tests\TestAsset\Schema\Version20261105000200CreateSubject;
 use Contenir\Audience\Tests\TestAsset\Schema\Version20261105000300CreateSuppression;
 use Contenir\Audience\Tests\TestAsset\Schema\Version20261105000400CreateConsent;
+use Contenir\Audience\Tests\TestAsset\Schema\Version20261105000500CreateWebhook;
 use Contenir\Audience\Tests\Trait\AdapterPlatformStubTrait;
 use PhpDb\Migration\SchemaInspector;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -145,10 +146,39 @@ final class AudienceMigrationsTest extends TestCase
     }
 
     /**
+     * @return array<string, array{class-string<AbstractAudienceMigration>, string, list<string>, list<string>}>
+     */
+    public static function webhookMigrationProvider(): array
+    {
+        return [
+            'the webhooks' => [
+                Version20261105000500CreateWebhook::class,
+                'test_audience_webhook',
+                [
+                    'CREATE TABLE `test_audience_webhook` (`binding` VARCHAR(64) NOT NULL,'
+                        . ' `remote_id` VARCHAR(128) NOT NULL,'
+                        . ' `signing_secret` VARCHAR(255) NULL,'
+                        . ' `registered_at` DATETIME NOT NULL,'
+                        . ' PRIMARY KEY (`binding`)'
+                        . self::MYSQL_TABLE_OPTIONS,
+                ],
+                [
+                    'CREATE TABLE "test_audience_webhook" ("binding" VARCHAR(64) NOT NULL,'
+                        . ' "remote_id" VARCHAR(128) NOT NULL,'
+                        . ' "signing_secret" VARCHAR(255) NULL,'
+                        . ' "registered_at" DATETIME NOT NULL,'
+                        . ' PRIMARY KEY ("binding"))',
+                ],
+            ],
+        ];
+    }
+
+    /**
      * @param class-string<AbstractAudienceMigration> $class
      * @param list<string>                            $mysql
      */
     #[DataProvider('migrationProvider')]
+    #[DataProvider('webhookMigrationProvider')]
     #[Test]
     public function createsTheTableUnderTheAddOnsPrefixOnMysql(string $class, string $table, array $mysql): void
     {
@@ -161,6 +191,7 @@ final class AudienceMigrationsTest extends TestCase
      * @param list<string>                            $sqlite
      */
     #[DataProvider('migrationProvider')]
+    #[DataProvider('webhookMigrationProvider')]
     #[Test]
     public function createsTheTableUnderTheAddOnsPrefixOnSqlite(
         string $class,
@@ -175,6 +206,7 @@ final class AudienceMigrationsTest extends TestCase
      * @param class-string<AbstractAudienceMigration> $class
      */
     #[DataProvider('migrationProvider')]
+    #[DataProvider('webhookMigrationProvider')]
     #[Test]
     public function describesItselfByItsTable(string $class, string $table): void
     {
@@ -185,6 +217,7 @@ final class AudienceMigrationsTest extends TestCase
      * @param class-string<AbstractAudienceMigration> $class
      */
     #[DataProvider('migrationProvider')]
+    #[DataProvider('webhookMigrationProvider')]
     #[Test]
     public function leavesAnExistingMysqlTable(string $class, string $table): void
     {

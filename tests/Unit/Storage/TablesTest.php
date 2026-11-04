@@ -41,8 +41,9 @@ final class TablesTest extends TestCase
                 'ext_campaign_monitor_subject',
                 'ext_campaign_monitor_suppression',
                 'ext_campaign_monitor_consent',
+                'ext_campaign_monitor_webhook',
             ],
-            [$tables->outbox(), $tables->subject(), $tables->suppression(), $tables->consent()],
+            [$tables->outbox(), $tables->subject(), $tables->suppression(), $tables->consent(), $tables->webhook()],
         );
     }
 

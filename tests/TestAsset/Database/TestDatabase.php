@@ -39,7 +39,14 @@ final class TestDatabase
     {
         $tables = self::tables();
 
-        return [$tables->outbox(), $tables->subject(), $tables->suppression(), $tables->consent(), 'migrations'];
+        return [
+            $tables->outbox(),
+            $tables->subject(),
+            $tables->suppression(),
+            $tables->consent(),
+            $tables->webhook(),
+            'migrations',
+        ];
     }
 
     public static function connect(): AdapterInterface
