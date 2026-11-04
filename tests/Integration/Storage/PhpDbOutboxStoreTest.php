@@ -56,6 +56,10 @@ final class PhpDbOutboxStoreTest extends AbstractOutboxStoreContract
     #[Test]
     public function refusesARowItCannotRead(array $corrupt, string $message): void
     {
+        if ('attempts' === key($corrupt) && 'MySQL' === $this->adapter->getPlatform()->getName()) {
+            static::markTestSkipped('MySQL keeps attempts unsigned, so only SQLite can hold a negative count');
+        }
+
         $store = $this->store();
         $id    = $store->add(Make::message(), 'a', Make::time());
         $this->adapter->query(
