@@ -12,6 +12,7 @@ use function is_bool;
 use function is_string;
 use function mb_strtolower;
 use function mb_strtoupper;
+use function preg_match;
 use function preg_split;
 use function strtolower;
 use function trim;
@@ -44,7 +45,7 @@ enum Transform: string
     private static function date(string $value): ?string
     {
         try {
-            return '' === trim($value) ? null : (new DateTimeImmutable($value))->format('Y-m-d');
+            return 1 === preg_match('/\S/', $value) ? (new DateTimeImmutable($value))->format('Y-m-d') : null;
         } catch (Exception) {
             return null;
         }
