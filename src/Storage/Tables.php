@@ -48,4 +48,9 @@ final readonly class Tables
     {
         return "{$this->prefix}suppression";
     }
+
+    public function webhook(): string
+    {
+        return "{$this->prefix}webhook";
+    }
 }

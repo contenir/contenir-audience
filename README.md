@@ -41,8 +41,8 @@ php-db 0.6 has no stable release yet, so the site's `composer.json` needs `"mini
 
 ### Tables
 
-Each add-on keeps its own tables, under its own prefix, such as `ext_mailchimp_`: an outbox, sync state, suppression
-and the consent ledger. The library ships each table's migration as an abstract class; an add-on subclasses each with
+Each add-on keeps its own tables, under its own prefix, such as `ext_mailchimp_`: an outbox, sync state, suppression,
+the consent ledger, and the webhooks it registered at its service. The library ships each table's migration as an abstract class; an add-on subclasses each with
 its prefix and a version of its own:
 
 ```php

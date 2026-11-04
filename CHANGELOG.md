@@ -13,4 +13,6 @@ adheres to [Semantic Versioning](https://semver.org/).
 - php-db stores for the outbox, sync state, suppression and consent ledger, with abstract migrations an add-on
   subclasses under its own prefix.
 - A webhook's registration carries the secret a service signs its calls with, as Mailchimp gives it only once.
+- A store for the webhooks an add-on registers, one for each binding, with the service's id for each and the secret it
+  signs its calls with, and its abstract migration.
 - A test kit: stores and a service held in memory, and a clock a test moves.
