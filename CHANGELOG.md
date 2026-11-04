@@ -12,4 +12,5 @@ adheres to [Semantic Versioning](https://semver.org/).
 - The consent policy, back-off, outbox worker and the handling of what a service reports through its webhook.
 - php-db stores for the outbox, sync state, suppression and consent ledger, with abstract migrations an add-on
   subclasses under its own prefix.
+- A webhook's registration carries the secret a service signs its calls with, as Mailchimp gives it only once.
 - A test kit: stores and a service held in memory, and a clock a test moves.

@@ -7,6 +7,7 @@ namespace Contenir\Audience\Tests\Unit\Service;
 use Contenir\Audience\Service\Capabilities;
 use Contenir\Audience\Service\DoubleOptIn;
 use Contenir\Audience\Service\RemoteField;
+use Contenir\Audience\Service\WebhookRegistration;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -26,5 +27,11 @@ final class ServiceValuesTest extends TestCase
         $capabilities = new Capabilities(100, DoubleOptIn::None);
 
         static::assertSame([false, false], [$capabilities->tags, $capabilities->signedWebhooks]);
+    }
+
+    #[Test]
+    public function assumesAWebhookIsUnsignedUnlessTheServiceGivesASecret(): void
+    {
+        static::assertNull((new WebhookRegistration('wh-1'))->signingSecret);
     }
 }
