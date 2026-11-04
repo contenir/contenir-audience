@@ -24,9 +24,10 @@ interface WebhookReceiverInterface
     public function parse(ServerRequestInterface $request, Binding $binding): array;
 
     /**
-     * Registers $url for the binding's list, and answers with the service's id for the webhook.
+     * Registers $url for the binding's list, and answers with the service's id for the webhook
+     * and, when the service signs its calls, the secret it signs them with.
      *
      * @throws ConnectionRefused
      */
-    public function register(Binding $binding, string $url): string;
+    public function register(Binding $binding, string $url): WebhookRegistration;
 }
